@@ -54,9 +54,18 @@ bool incrementPoint::SlashCommand (int playerID, bz_ApiString command, bz_ApiStr
 	if (command == "incrementPoint")
 	{
 		bz_BasePlayerRecord *fromPlayer = bz_getPlayerByIndex(playerID);
+
+		if (!fromPlayer->admin)
+		{
+			bz_sendTextMessage(BZ_SERVER, playerID, "You do not have permission to run /incrementPoint.");
+			bz_freePlayerRecord(fromPlayer);
+			return true;
+		}
+
 		if (params->size() != 1)
 		{
 			bz_sendTextMessage(BZ_SERVER, playerID, "/incrementPoint <player ID|callsign>");
+			bz_freePlayerRecord(fromPlayer);
 			return true;
 		}
 
@@ -80,9 +89,18 @@ bool incrementPoint::SlashCommand (int playerID, bz_ApiString command, bz_ApiStr
 	if (command == "decrementPoint")
 	{
 		bz_BasePlayerRecord *fromPlayer = bz_getPlayerByIndex(playerID);
+
+		if (!fromPlayer->admin)
+		{
+			bz_sendTextMessage(BZ_SERVER, playerID, "You do not have permission to run /decrementPoint.");
+			bz_freePlayerRecord(fromPlayer);
+			return true;
+		}
+
 		if (params->size() != 1)
 		{
 			bz_sendTextMessage(BZ_SERVER, playerID, "/decrementPoint <player ID|callsign>");
+			bz_freePlayerRecord(fromPlayer);
 			return true;
 		}
 
