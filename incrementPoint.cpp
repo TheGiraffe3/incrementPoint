@@ -40,6 +40,7 @@ const char* incrementPoint::Name ()
 void incrementPoint::Init (const char*)
 {
 	bz_registerCustomSlashCommand("incrementPoint", this);
+	bz_registerCustomSlashCommand("decrementPoint", this);
 }
 
 void incrementPoint::Cleanup ()
@@ -47,6 +48,7 @@ void incrementPoint::Cleanup ()
 	Flush();
 
 	bz_removeCustomSlashCommand("incrementPoint");
+	bz_removeCustomSlashCommand("decrementPoint");
 }
 
 bool incrementPoint::SlashCommand (int playerID, bz_ApiString command, bz_ApiString /*message*/, bz_APIStringList *params)
@@ -74,7 +76,7 @@ bool incrementPoint::SlashCommand (int playerID, bz_ApiString command, bz_ApiStr
 
 		if (!receiverID)
 		{
-			bz_sendTextMessagef(BZ_SERVER, playerID, "player \"%s\" not found", receiverID);
+			bz_sendTextMessagef(BZ_SERVER, playerID, "player \"%s\" not found", params->get(0).c_str());
 		}
 		else
 		{
@@ -109,7 +111,7 @@ bool incrementPoint::SlashCommand (int playerID, bz_ApiString command, bz_ApiStr
 
 		if (!receiverID)
 		{
-			bz_sendTextMessagef(BZ_SERVER, playerID, "player \"%s\" not found", receiverID);
+			bz_sendTextMessagef(BZ_SERVER, playerID, "player \"%s\" not found", params->get(0).c_str());
 		}
 		else
 		{
